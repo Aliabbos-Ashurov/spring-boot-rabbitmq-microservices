@@ -21,11 +21,6 @@ public class NotificationController {
 
     @PostMapping("/save")
     public ResponseEntity<NotificationResponseDTO> save(@RequestBody NotificationCreateDTO dto) {
-        return ResponseEntity.ok(notificationService.save(dto));
-    }
-
-    @GetMapping("/get")
-    public ResponseEntity<List<NotificationResponseDTO>> getAll() {
-        return ResponseEntity.ok(notificationService.findAll());
+        return ResponseEntity.ok(notificationService.save("Hi"));
     }
 }

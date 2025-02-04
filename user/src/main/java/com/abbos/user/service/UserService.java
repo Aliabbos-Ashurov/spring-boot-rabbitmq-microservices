@@ -1,13 +1,14 @@
 package com.abbos.user.service;
 
 import com.abbos.user.client.NotificationClient;
-import com.abbos.user.dto.NotificationCreateDTO;
+import com.abbos.user.config.RabbitMQConfig;
 import com.abbos.user.dto.UserCreateDTO;
 import com.abbos.user.dto.UserResponseDTO;
 import com.abbos.user.entity.User;
 import com.abbos.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,17 +22,24 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
     private final UserRepository userRepository;
     private final NotificationClient notificationClient;
+    private final RabbitTemplate rabbitTemplate;
 
     @Transactional
     public UserResponseDTO save(UserCreateDTO dto) {
-        final var userNew = userRepository.save(new User().toBuilder()
+        final var userNew = new User().toBuilder()
                 .username(dto.username())
                 .fullName(dto.fullName())
                 .email(dto.email())
                 .password(dto.password())
-                .build());
-        final var response = notificationClient.save(new NotificationCreateDTO("Hi", userNew.getId()));
-        log.info("Message sent successfully to {} :: {}", dto.username(), response);
+                .build();
+
+        rabbitTemplate.convertAndSend(
+                RabbitMQConfig.NOTIFICATION_EXCHANGE,
+                RabbitMQConfig.NOTIFICATION_ROUTING_KEY,
+                "Hello from rabbit template"
+        );
+
+        log.info("Message sent successfully");
         return new UserResponseDTO(userNew.getId(), userNew.getFullName(), userNew.getUsername(), userNew.getEmail());
     }
 
