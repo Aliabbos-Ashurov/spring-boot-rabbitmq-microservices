@@ -6,7 +6,14 @@ spring:
     cloud:
       discovery:
         enabled: true
-
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: password
+    queue: notification.queue
+    exchange: notification.exchange
+    routingKey: notification.routing.key
 eureka:
   client:
     register-with-eureka: true

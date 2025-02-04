@@ -11,9 +11,18 @@ spring:
         hibernate:
           format_sql: true
           show_sql: true
+      open-in-view: false
     cloud:
       discovery:
         enabled: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: password
+    queue: notification.queue
+    exchange: notification.exchange
+    routingKey: notification.routing.key
 
 server:
   port: 8081
