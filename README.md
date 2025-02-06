@@ -38,7 +38,7 @@ example of a gateway with YAML file configurations.
 
 
 - **Spring Boot** for building microservices.
-- **Spring Cloud** for service discovery, configuration, and Feign integration.
+- **Spring Cloud** for service discovery, gateway ,configuration, and Feign integration.
 - **RabbitMQ** message broker
 - **MongoDB** and **PostgreSQL** as databases.
 - **Docker** for containerization.
