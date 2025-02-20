@@ -9,6 +9,7 @@ docker volume rm $(docker volume ls -qf "name=mongo-data")
 # shellcheck disable=SC2046
 docker volume rm $(docker volume ls -qf "name=rabbitmq-data")
 
+
 echo "Removing network..."
 docker network rm app-network
 
