@@ -14,3 +14,4 @@ echo "Removing network..."
 docker network rm app-network
 
 echo "All services, volumes, and network have been removed."
+echo "---------------------------------"
