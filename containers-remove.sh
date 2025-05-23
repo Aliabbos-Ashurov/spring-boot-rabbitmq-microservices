@@ -1,5 +1,6 @@
 #!/bin/bash
 
+echo "---------------------------------"
 docker-compose down
 
 # shellcheck disable=SC2046
